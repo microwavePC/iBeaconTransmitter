@@ -1,4 +1,5 @@
 ﻿using System;
+
 namespace iBeaconTransmitter
 {
 	public class iBeacon

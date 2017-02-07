@@ -16,7 +16,7 @@ namespace iBeaconTransmitter.iOS.Model
 		/// <summary>
 		/// BLEの発信を制御するクラスのインスタンス
 		/// </summary>
-		CBPeripheralManager _peripheralManager = new CBPeripheralManager();
+		private CBPeripheralManager _peripheralManager = new CBPeripheralManager();
 
 		#endregion
 
@@ -46,7 +46,6 @@ namespace iBeaconTransmitter.iOS.Model
 
 			// iBeaconの発信を開始する。
 			_peripheralManager.StartAdvertising(peripheralData);
-
 		}
 
 		/// <summary>

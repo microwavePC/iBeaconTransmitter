@@ -3,13 +3,14 @@ using iBeaconTransmitter.Model;
 using iBeaconTransmitter.Droid.Model;
 using Xamarin.Forms;
 using AltBeaconOrg.BoundBeacon;
+using iBeaconTransmitter.Common;
 
 [assembly: Dependency(typeof(iBeaconTransmitService))]
 namespace iBeaconTransmitter.Droid.Model
 {
 	public class iBeaconTransmitService : IiBeaconTransmitService
 	{
-		#region Constant
+		#region Constants
 
 		/// <summary>
 		/// iBeaconのバイト列のフォーマット
@@ -17,7 +18,7 @@ namespace iBeaconTransmitter.Droid.Model
 		/// i：identifier（UUID、Major、Minorの場所の指定）
 		/// p：パワーキャリブレーションの値
 		/// </summary>
-		const string IBEACON_FORMAT = "m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24";
+		private const string IBEACON_FORMAT = "m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24";
 
 		#endregion
 
@@ -26,7 +27,7 @@ namespace iBeaconTransmitter.Droid.Model
 		/// <summary>
 		/// ビーコンの送信を制御するクラスのインスタンス
 		/// </summary>
-		BeaconTransmitter _beaconTransmitter;
+		private BeaconTransmitter _beaconTransmitter;
 
 		#endregion
 
@@ -54,7 +55,7 @@ namespace iBeaconTransmitter.Droid.Model
 			                    .SetId1(uuid.ToString())
 			                    .SetId2(major.ToString())
 			                    .SetId3(minor.ToString())
-			                    .SetManufacturer(0x004C)
+			                    .SetManufacturer(Const.COMPANY_CODE_APPLE)
 			                    .Build();
 
 			// iBeaconのバイト列フォーマットをBeaconParser（アドバタイズ時のバイト列定義）にセットする。

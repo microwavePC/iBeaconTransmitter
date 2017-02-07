@@ -2,8 +2,6 @@
 using Prism.Mvvm;
 using Prism.Navigation;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Input;
 using iBeaconTransmitter.Model;
 using iBeaconTransmitter.Common;
@@ -19,7 +17,7 @@ namespace iBeaconTransmitter.ViewModels
 		/// <summary>
 		/// アプリのタイトル
 		/// </summary>
-		string _title;
+		private string _title;
 		public string Title
 		{
 			get { return _title; }
@@ -29,12 +27,12 @@ namespace iBeaconTransmitter.ViewModels
 		/// <summary>
 		/// iBeaconの情報を保持するインスタンス
 		/// </summary>
-		iBeacon _ibeacon;
+		private iBeacon _ibeacon;
 
 		/// <summary>
 		/// iBeaconのUUID
 		/// </summary>
-		string _uuid;
+		private string _uuid;
 		public string Uuid
 		{
 			get { return _uuid; }
@@ -44,7 +42,7 @@ namespace iBeaconTransmitter.ViewModels
 		/// <summary>
 		/// iBeaconのMajor値
 		/// </summary>
-		string _major;
+		private string _major;
 		public string Major
 		{
 			get { return _major; }
@@ -54,7 +52,7 @@ namespace iBeaconTransmitter.ViewModels
 		/// <summary>
 		/// iBeaconのMinor値
 		/// </summary>
-		string _minor;
+		private string _minor;
 		public string Minor
 		{
 			get { return _minor; }
@@ -62,19 +60,31 @@ namespace iBeaconTransmitter.ViewModels
 		}
 
 		/// <summary>
-		/// 発信/停止ボタンの表示文字列
+		/// 発信/停止ボタンの表示文字列と、ボタンの状態を保持するbool変数
 		/// </summary>
-		string _buttonTitle;
+		private string _buttonTitle;
+		private bool _buttonTitleIsTransmitStart;
 		public string ButtonTitle
 		{
 			get { return _buttonTitle; }
-			set { SetProperty(ref _buttonTitle, value); }
+			set
+			{
+				SetProperty(ref _buttonTitle, value);
+				if (value == Const.STR_TRANSMIT_START)
+				{
+					_buttonTitleIsTransmitStart = true;
+				}
+				else
+				{
+					_buttonTitleIsTransmitStart = false;
+				}
+			}
 		}
 
 		/// <summary>
 		/// iBeaconの設定値（UUID、Major、Minor）の編集可否
 		/// </summary>
-		bool _canEditBeaconProperties;
+		private bool _canEditBeaconProperties;
 		public bool CanEditBeaconProperties
 		{
 			get { return _canEditBeaconProperties; }
@@ -84,12 +94,12 @@ namespace iBeaconTransmitter.ViewModels
 		/// <summary>
 		/// iBeacon発信処理を持つサービス
 		/// </summary>
-		readonly IiBeaconTransmitService _iBeaconTransmitService;
+		private readonly IiBeaconTransmitService _iBeaconTransmitService;
 
 		/// <summary>
 		/// ダイアログ表示処理を扱うサービス
 		/// </summary>
-		readonly IPageDialogService _pageDialogService;
+		private readonly IPageDialogService _pageDialogService;
 
 		/// <summary>
 		/// iBeacon発信/停止を制御するコマンド
@@ -164,7 +174,7 @@ namespace iBeaconTransmitter.ViewModels
 		/// <summary>
 		/// 発信/停止ボタンの実処理
 		/// </summary>
-		void changeTransmitStatus()
+		private void changeTransmitStatus()
 		{
 			// UUID、Major、Minorの入力が正しいかをチェックする。
 			string errorMsgForBeaconInfo;
@@ -179,11 +189,13 @@ namespace iBeaconTransmitter.ViewModels
 			{
 				// 入力が正しくない場合、エラーメッセージを表示する。
 				// TODO: エラーダイアログ表示処理
-				_pageDialogService.DisplayAlertAsync("エラー", errorMsgForBeaconInfo, "OK");
+				_pageDialogService.DisplayAlertAsync(Const.STR_DIALOG_TITLE_ERROR,
+				                                     errorMsgForBeaconInfo,
+				                                     Const.STR_DIALOG_BUTTON_OK);
 				return;
 			}
 
-			if (ButtonTitle == Const.STR_TRANSMIT_START)
+			if (_buttonTitleIsTransmitStart)
 			{
 				// iBeaconの発信を開始する。
 				try
@@ -224,7 +236,7 @@ namespace iBeaconTransmitter.ViewModels
 		/// </summary>
 		/// <returns><c>true</c>, 発信コマンド実行可能, <c>false</c> 発信コマンド実行不可</returns>
 		/*
-		bool canExecuteTransmitStartStopCommand()
+		private bool canExecuteTransmitStartStopCommand()
 		{
 			// チェック処理
 		}
