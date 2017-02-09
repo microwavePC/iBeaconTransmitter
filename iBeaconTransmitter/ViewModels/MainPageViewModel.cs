@@ -60,6 +60,16 @@ namespace iBeaconTransmitter.ViewModels
 		}
 
 		/// <summary>
+		/// iBeaconのTxPower
+		/// </summary>
+		private sbyte _txPower;
+		public sbyte TxPower
+		{
+			get { return _txPower; }
+			set { SetProperty(ref _txPower, value);}
+		}
+
+		/// <summary>
 		/// 発信/停止ボタンの表示文字列と、ボタンの状態を保持するbool変数
 		/// </summary>
 		private string _buttonTitle;
@@ -155,12 +165,17 @@ namespace iBeaconTransmitter.ViewModels
 		{
 			// アプリのタイトルを取得する。
 			if (parameters.ContainsKey("title"))
+			{
 				Title = (string)parameters["title"] + " and Prism";
+			}
+
+			// TxPowerの初期値を設定する。
+			TxPower = iBeacon.DEFAULT_TXPOWER;
 
 			// 発信/停止ボタンの表記を更新する。
 			ButtonTitle = Const.STR_TRANSMIT_START;
 
-			// iBeacon情報の変更可否を更新する。
+			// iBeacon情報の変更を可能にする。
 			CanEditBeaconProperties = true;
 
 			// iBeaconの情報を保持するためのインスタンスを作成する。
@@ -184,11 +199,11 @@ namespace iBeaconTransmitter.ViewModels
 				_ibeacon.Uuid = Guid.Parse(Uuid);
 				_ibeacon.Major = ushort.Parse(Major);
 				_ibeacon.Minor = ushort.Parse(Minor);
+				_ibeacon.TxPower = TxPower;
 			}
 			else
 			{
 				// 入力が正しくない場合、エラーメッセージを表示する。
-				// TODO: エラーダイアログ表示処理
 				_pageDialogService.DisplayAlertAsync(Const.STR_DIALOG_TITLE_ERROR,
 				                                     errorMsgForBeaconInfo,
 				                                     Const.STR_DIALOG_BUTTON_OK);

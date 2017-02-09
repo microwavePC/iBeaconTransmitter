@@ -16,6 +16,11 @@ namespace iBeaconTransmitter
 		/// </summary>
 		public const ushort DEFAULT_MINOR = 0;
 
+		/// <summary>
+		/// TxPowerのデフォルト値
+		/// </summary>
+		public const sbyte DEFAULT_TXPOWER = -59;
+
 		#endregion
 
 		#region Valiables
@@ -38,6 +43,12 @@ namespace iBeaconTransmitter
 		/// <value>iBeaconのMinor</value>
 		public ushort Minor { get; set; }
 
+		/// <summary>
+		/// iBeaconのTxPower
+		/// </summary>
+		/// <value>iBeaconのTxPower</value>
+		public sbyte TxPower { get; set; }
+
 		#endregion
 
 		#region Constructor
@@ -50,19 +61,21 @@ namespace iBeaconTransmitter
 			this.Uuid = Guid.Empty;
 			this.Major = DEFAULT_MAJOR;
 			this.Minor = DEFAULT_MINOR;
+			this.TxPower = DEFAULT_TXPOWER;
 		}
 
 		/// <summary>
-		/// 引数で指定されたUUID、Major、Minorを持つiBeaconとしてインスタンスを生成
+		/// 引数で指定されたUUID、Major、Minor、TxPowerを持つiBeaconとしてインスタンスを生成
 		/// </summary>
 		/// <param name="uuid">iBeaconのUUID</param>
 		/// <param name="major">Major値</param>
 		/// <param name="minor">Minor値</param>
-		public iBeacon(Guid uuid, ushort major, ushort minor)
+		public iBeacon(Guid uuid, ushort major, ushort minor, sbyte txPower)
 		{
 			this.Uuid = uuid;
 			this.Major = major;
 			this.Minor = minor;
+			this.TxPower = txPower;
 		}
 
 		#endregion

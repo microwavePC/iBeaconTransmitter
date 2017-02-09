@@ -39,7 +39,7 @@ namespace iBeaconTransmitter.Droid.Model
 		/// <param name="ibeacon">iBeaconの定義</param>
 		public void StartTransmission(iBeacon ibeacon)
 		{
-			this.StartTransmission(ibeacon.Uuid, ibeacon.Major, ibeacon.Minor);
+			this.StartTransmission(ibeacon.Uuid, ibeacon.Major, ibeacon.Minor, ibeacon.TxPower);
 		}
 
 		/// <summary>
@@ -48,13 +48,14 @@ namespace iBeaconTransmitter.Droid.Model
 		/// <param name="uuid">UUID</param>
 		/// <param name="major">Major</param>
 		/// <param name="minor">Minor</param>
-		public void StartTransmission(Guid uuid, ushort major, ushort minor)
+		public void StartTransmission(Guid uuid, ushort major, ushort minor, sbyte txPower)
 		{
 			// Android用のビーコン定義を作成
 			Beacon beacon = new Beacon.Builder()
 			                    .SetId1(uuid.ToString())
 			                    .SetId2(major.ToString())
 			                    .SetId3(minor.ToString())
+			                    .SetTxPower(txPower)
 			                    .SetManufacturer(Const.COMPANY_CODE_APPLE)
 			                    .Build();
 

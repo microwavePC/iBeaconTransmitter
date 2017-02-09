@@ -10,7 +10,7 @@ using Android.App;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("")]
-[assembly: AssemblyCopyright("(c) microwavePC")]
+[assembly: AssemblyCopyright("microwavePC")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
