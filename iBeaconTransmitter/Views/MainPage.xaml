@@ -14,7 +14,8 @@
 			<StackLayout.Margin>
 				<OnPlatform x:TypeArguments="Thickness"
 							iOS="0,20,0,-8"
-							Android="0,10,0,-8" />
+							Android="0,10,0,-8" 
+							WinPhone="0,20,0,-10" />
 			</StackLayout.Margin>
 			<Label Text="TxPower :">
 				<Label.FontSize>
