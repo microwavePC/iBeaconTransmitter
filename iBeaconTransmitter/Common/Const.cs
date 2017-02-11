@@ -20,6 +20,11 @@
 		/// </summary>
 		public const string STR_DIALOG_TITLE_ERROR = "エラー";
 
+        /// <summary>
+        /// エラーダイアログのメッセージ（BLEの発信ができない場合）
+        /// </summary>
+        public const string STR_DIALOG_MSG_CANNOT_TRANSMIT = "この端末はBluetooth Low Energyの発信に対応していないか、Bluetooth機能がオフにされています。";
+
 		/// <summary>
 		/// エラーダイアログのOKボタンの表記
 		/// </summary>

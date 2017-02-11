@@ -133,15 +133,13 @@ namespace iBeaconTransmitter.ViewModels
 			_iBeaconTransmitService = ibeaconTransmitService;
 
 			// TransmitStartStopCommandコマンドの実処理をchangeTransmitStatusメソッドに設定する。
-			TransmitStartStopCommand = new DelegateCommand(changeTransmitStatus);
+			//TransmitStartStopCommand = new DelegateCommand(changeTransmitStatus);
 
 			// TransmitStartStopCommandコマンドの実処理をchangeTransmitStatusメソッドに設定しつつ、
 			// 実行可否をcanExecuteTransmitStartStopCommandで制御する。
 			// canExecuteTransmitStartStopCommandの戻り値がfalseの場合はコマンド実行不可。
-			/*
 			TransmitStartStopCommand =
 				new DelegateCommand(changeTransmitStatus, canExecuteTransmitStartStopCommand);
-			*/
 		}
 
 		#endregion
@@ -243,19 +241,28 @@ namespace iBeaconTransmitter.ViewModels
 				}
 			}
 		}
-
-		//*
+        
 		/// <summary>
 		/// 発信/停止ボタンの呼び出し可否の制御
 		/// ここで設定された条件がtrueとなった場合のみボタンの処理が続行可能になる。
 		/// </summary>
 		/// <returns><c>true</c>, 発信コマンド実行可能, <c>false</c> 発信コマンド実行不可</returns>
-		/*
 		private bool canExecuteTransmitStartStopCommand()
 		{
-			// チェック処理
-		}
-		*/
+            // 端末がBLEの発信に対応しているかどうかをチェックする。
+            if (!_iBeaconTransmitService.TransmissionSupported())
+            {
+                // BLEの発信ができない旨のエラーダイアログを表示する。
+                _pageDialogService.DisplayAlertAsync(Const.STR_DIALOG_TITLE_ERROR,
+                                                     Const.STR_DIALOG_MSG_CANNOT_TRANSMIT,
+                                                     Const.STR_DIALOG_BUTTON_OK);
+                // iBeacon情報の変更ができないようにする。
+                CanEditBeaconProperties = false;
+                return false;
+            }
+
+            return true;
+        }
 
 		#endregion
 	}

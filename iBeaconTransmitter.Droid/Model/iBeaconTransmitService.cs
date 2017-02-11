@@ -29,15 +29,25 @@ namespace iBeaconTransmitter.Droid.Model
 		/// </summary>
 		private BeaconTransmitter _beaconTransmitter;
 
-		#endregion
+        #endregion
 
-		#region Public methods
+        #region Public methods
 
-		/// <summary>
-		/// iBeacon発信開始処理（引数で渡されたiBeaconの定義に従い発信）
-		/// </summary>
-		/// <param name="ibeacon">iBeaconの定義</param>
-		public void StartTransmission(iBeacon ibeacon)
+        /// <summary>
+        /// 端末がBLEの発信に対応しているかどうかをチェックする処理
+        /// </summary>
+        /// <returns><c>true</c>, 発信可能, <c>false</c> 発信不可</returns>
+        public bool TransmissionSupported()
+        {
+            int checkResult = BeaconTransmitter.CheckTransmissionSupported(Android.App.Application.Context);
+            return (checkResult == BeaconTransmitter.Supported);
+        }
+
+        /// <summary>
+        /// iBeacon発信開始処理（引数で渡されたiBeaconの定義に従い発信）
+        /// </summary>
+        /// <param name="ibeacon">iBeaconの定義</param>
+        public void StartTransmission(iBeacon ibeacon)
 		{
 			this.StartTransmission(ibeacon.Uuid, ibeacon.Major, ibeacon.Minor, ibeacon.TxPower);
 		}

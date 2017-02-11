@@ -23,6 +23,15 @@ namespace iBeaconTransmitter.UWP.Model
         #region Public methods
 
         /// <summary>
+        /// 端末がBLEの発信に対応しているかどうかをチェックする処理
+        /// </summary>
+        /// <returns><c>true</c>, 発信可能, <c>false</c> 発信不可</returns>
+        public bool TransmissionSupported()
+        {
+            return true;
+        }
+
+        /// <summary>
         /// iBeacon発信開始処理（引数で渡されたiBeaconの定義に従い発信）
         /// </summary>
         /// <param name="ibeacon">iBeaconの定義</param>
@@ -53,7 +62,8 @@ namespace iBeaconTransmitter.UWP.Model
             byte txPowerByte = (byte)((int)txPower + 256);
 
             // UUID、Major、Minorを、iBeaconのフォーマットに準拠する形に梱包する。
-            byte[] ibeaconAdvertisementDataArray = new byte[] {
+            byte[] ibeaconAdvertisementDataArray = new byte[]
+            {
                 // iBeaconと識別するための固定値
                 0x02, 0x15,
                 // UUID
