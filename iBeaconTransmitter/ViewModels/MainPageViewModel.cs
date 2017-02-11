@@ -178,6 +178,17 @@ namespace iBeaconTransmitter.ViewModels
 
 			// iBeaconの情報を保持するためのインスタンスを作成する。
 			_ibeacon = new iBeacon();
+
+			if (!_iBeaconTransmitService.TransmissionSupported())
+			{
+				// BLEの発信ができない場合、その旨のエラーダイアログを表示する。
+				_pageDialogService.DisplayAlertAsync(Const.STR_DIALOG_TITLE_ERROR,
+				                                     Const.STR_DIALOG_MSG_CANNOT_TRANSMIT,
+				                                     Const.STR_DIALOG_BUTTON_OK);
+
+				// iBeacon情報の変更と発信ボタンの操作ができないようにする。
+				CanEditBeaconProperties = false;
+			}
 		}
 
 		#endregion
@@ -250,18 +261,7 @@ namespace iBeaconTransmitter.ViewModels
 		private bool canExecuteTransmitStartStopCommand()
 		{
             // 端末がBLEの発信に対応しているかどうかをチェックする。
-            if (!_iBeaconTransmitService.TransmissionSupported())
-            {
-                // BLEの発信ができない旨のエラーダイアログを表示する。
-                _pageDialogService.DisplayAlertAsync(Const.STR_DIALOG_TITLE_ERROR,
-                                                     Const.STR_DIALOG_MSG_CANNOT_TRANSMIT,
-                                                     Const.STR_DIALOG_BUTTON_OK);
-                // iBeacon情報の変更ができないようにする。
-                CanEditBeaconProperties = false;
-                return false;
-            }
-
-            return true;
+            return _iBeaconTransmitService.TransmissionSupported();
         }
 
 		#endregion
