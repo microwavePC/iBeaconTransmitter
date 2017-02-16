@@ -78,21 +78,23 @@ namespace iBeaconTransmitter
 			this.TxPower = txPower;
 		}
 
-		#endregion
+        #endregion
 
-		/// <summary>
-		/// 引数で渡されたUUID、Major、Minorの各文字列が
-		/// ビーコンの設定値としてのフォーマットに即しているかをチェックする処理
-		/// </summary>
-		/// <returns>
-		/// <c>true</c>, UUID、Major、Minorが全てフォーマットに即している場合, 
-		/// <c>false</c> UUID、Major、Minorのどれかが誤ったフォーマットとなっている場合.
-		/// </returns>
-		/// <param name="uuid">UUID</param>
-		/// <param name="major">Major</param>
-		/// <param name="minor">Minor</param>
-		/// <param name="errorMsg">チェック結果のメッセージを格納する文字列</param>
-		public static bool IsValidInput(string uuid, string major, string minor, out string errorMsg)
+        #region Static methods
+
+        /// <summary>
+        /// 引数で渡されたUUID、Major、Minorの各文字列が
+        /// ビーコンの設定値としてのフォーマットに即しているかをチェックする処理
+        /// </summary>
+        /// <returns>
+        /// <c>true</c>, UUID、Major、Minorが全てフォーマットに即している場合, 
+        /// <c>false</c> UUID、Major、Minorのどれかが誤ったフォーマットとなっている場合.
+        /// </returns>
+        /// <param name="uuid">UUID</param>
+        /// <param name="major">Major</param>
+        /// <param name="minor">Minor</param>
+        /// <param name="errorMsg">チェック結果のメッセージを格納する文字列</param>
+        public static bool IsValidInput(string uuid, string major, string minor, out string errorMsg)
 		{
 			// UUID、Major、Minorそれぞれの判定結果を変数に取得する。
 			bool isValidUuid = IsValidInputForUuid(uuid);
@@ -164,5 +166,7 @@ namespace iBeaconTransmitter
 			bool checkResult = ushort.TryParse(strInputValue, out parsedValue);
 			return checkResult;
 		}
-	}
+
+        #endregion
+    }
 }

@@ -264,7 +264,7 @@ namespace iBeaconTransmitter.ViewModels
             return _iBeaconTransmitService.TransmissionSupported();
         }
 
-		#endregion
+        #endregion
 	}
 }
 
