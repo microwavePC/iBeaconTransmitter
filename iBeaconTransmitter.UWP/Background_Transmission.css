@@ -1,0 +1,48 @@
+﻿@charset "UTF-8";
+
+body {
+	margin: 0px;
+}
+
+.ripple {
+	height: 100%;
+	width: 100%;
+	text-align: center;
+	line-height: 100px;
+	cursor: pointer;
+	overflow: hidden;
+	position: relative;
+}
+
+.ripple__effect {
+	width: 300px;
+	height: 300px;
+	position: absolute;
+	border-radius: 100%;
+	pointer-events: none;
+	transform: scale(0);
+	opacity: 0;
+}
+.ripple__effect.is-orange {
+	background: #f1c40f;
+}
+.ripple__effect.is-blue {
+	background: #4aa3df;
+}
+.ripple__effect.is-black {
+	background: #999;
+}
+
+.ripple__effect.is-show {
+	animation: ripple 0.75s ease-out;
+}
+
+@keyframes ripple {
+	from {
+		opacity: 1;
+	}
+	to {
+		transform: scale(2);
+		opacity: 0;
+	}
+}
