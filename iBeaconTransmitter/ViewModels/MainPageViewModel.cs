@@ -15,16 +15,6 @@ namespace iBeaconTransmitter.ViewModels
 		#region Variables
 
 		/// <summary>
-		/// アプリのタイトル
-		/// </summary>
-		private string _title;
-		public string Title
-		{
-			get { return _title; }
-			set { SetProperty(ref _title, value); }
-		}
-
-		/// <summary>
 		/// iBeaconの情報を保持するインスタンス
 		/// </summary>
 		private iBeacon _ibeacon;
@@ -102,6 +92,17 @@ namespace iBeaconTransmitter.ViewModels
 		}
 
 		/// <summary>
+		/// 背景エフェクト用のWebViewに渡すURL
+		/// この変数にローカルのHTMLファイルのパスを入れる。
+		/// </summary>
+		private string _url;
+		public string Url
+		{
+			get { return _url; }
+			set { SetProperty(ref _url, value); }
+		}
+
+		/// <summary>
 		/// iBeacon発信処理を持つサービス
 		/// </summary>
 		private readonly IiBeaconTransmitService _iBeaconTransmitService;
@@ -110,6 +111,11 @@ namespace iBeaconTransmitter.ViewModels
 		/// ダイアログ表示処理を扱うサービス
 		/// </summary>
 		private readonly IPageDialogService _pageDialogService;
+
+		/// <summary>
+		/// プラットフォーム別のリソース情報の取得に利用するクラス
+		/// </summary>
+		private readonly IResourceUtility _resourceUtility;
 
 		/// <summary>
 		/// iBeacon発信/停止を制御するコマンド
@@ -124,13 +130,18 @@ namespace iBeaconTransmitter.ViewModels
 		/// iBeacon発信処理メイン画面のコンストラクタ
 		/// </summary>
 		/// <param name="ibeaconTransmitService">iBeacon発信処理を持つモデル</param>
-		public MainPageViewModel(IiBeaconTransmitService ibeaconTransmitService, IPageDialogService pageDialogService)
+		public MainPageViewModel(IiBeaconTransmitService ibeaconTransmitService,
+		                         IPageDialogService pageDialogService,
+		                         IResourceUtility resourceUtility)
 		{
 			// ダイアログ表示処理を扱うサービスをViewModelのクラスに保持する。
 			_pageDialogService = pageDialogService;
 
 			// iBeacon発信処理を持つモデルをViewModelのクラスに保持する。
 			_iBeaconTransmitService = ibeaconTransmitService;
+
+			// リソース情報取得用
+			_resourceUtility = resourceUtility;
 
 			// TransmitStartStopCommandコマンドの実処理をchangeTransmitStatusメソッドに設定する。
 			//TransmitStartStopCommand = new DelegateCommand(changeTransmitStatus);
@@ -161,12 +172,6 @@ namespace iBeaconTransmitter.ViewModels
 		/// <param name="parameters">App.xaml.csのOnInitializedで設定されたパラメーター</param>
 		public void OnNavigatedTo(NavigationParameters parameters)
 		{
-			// アプリのタイトルを取得する。
-			if (parameters.ContainsKey("title"))
-			{
-				Title = (string)parameters["title"] + " and Prism";
-			}
-
 			// TxPowerの初期値を設定する。
 			TxPower = iBeacon.DEFAULT_TXPOWER;
 
@@ -189,6 +194,9 @@ namespace iBeaconTransmitter.ViewModels
 				// iBeacon情報の変更と発信ボタンの操作ができないようにする。
 				CanEditBeaconProperties = false;
 			}
+
+			// 空のHTMLを指定し、背景が実質的に何もない状態にする。
+			Url = _resourceUtility.GetResourceRootPath() + "Background_Blank.html";
 		}
 
 		#endregion
@@ -229,6 +237,9 @@ namespace iBeaconTransmitter.ViewModels
 					// 発信/停止ボタンの表記を「停止」に変更し、ビーコン情報入力欄を利用不可にする。
 					ButtonTitle = Const.STR_TRANSMIT_STOP;
 					CanEditBeaconProperties = false;
+
+					// 背景のエフェクトを「発信中」に切り替える。
+					Url = _resourceUtility.GetResourceRootPath() + "Background_Transmission.html";
 				}
 				catch (Exception ex)
 				{
@@ -245,6 +256,9 @@ namespace iBeaconTransmitter.ViewModels
 					// 発信/停止ボタンの表記を「発信」に変更し、ビーコン情報入力欄を利用可能にする。
 					ButtonTitle = Const.STR_TRANSMIT_START;
 					CanEditBeaconProperties = true;
+
+					// 背景のエフェクトが何もない状態にする。
+					Url = _resourceUtility.GetResourceRootPath() + "Background_Blank.html";
 				}
 				catch (Exception ex)
 				{
@@ -260,8 +274,8 @@ namespace iBeaconTransmitter.ViewModels
 		/// <returns><c>true</c>, 発信コマンド実行可能, <c>false</c> 発信コマンド実行不可</returns>
 		private bool canExecuteTransmitStartStopCommand()
 		{
-            // 端末がBLEの発信に対応しているかどうかをチェックする。
-            return _iBeaconTransmitService.TransmissionSupported();
+			// 端末がBLEの発信に対応しているかどうかをチェックする。
+			return _iBeaconTransmitService.TransmissionSupported();
         }
 
         #endregion

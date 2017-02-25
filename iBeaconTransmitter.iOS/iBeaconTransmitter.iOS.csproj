@@ -140,9 +140,29 @@
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <Compile Include="Model\iBeaconTransmitService.cs" />
+    <Compile Include="CustomControls\CustomWebViewRenderer.cs" />
+    <Compile Include="Model\ResourceUtility.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Model\" />
+    <Folder Include="CustomControls\" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="..\iBeaconTransmitter\WebResources\CSS\Background_Transmission.css">
+      <Link>Resources\Background_Transmission.css</Link>
+    </BundleResource>
+    <BundleResource Include="..\iBeaconTransmitter\WebResources\HTML\Background_Transmission.html">
+      <Link>Resources\Background_Transmission.html</Link>
+    </BundleResource>
+    <BundleResource Include="..\iBeaconTransmitter\WebResources\JavaScript\Background_Transmission.js">
+      <Link>Resources\Background_Transmission.js</Link>
+    </BundleResource>
+    <BundleResource Include="..\iBeaconTransmitter\WebResources\JavaScript\jquery-2.1.4.min.js">
+      <Link>Resources\jquery-2.1.4.min.js</Link>
+    </BundleResource>
+    <BundleResource Include="..\iBeaconTransmitter\WebResources\HTML\Background_Blank.html">
+      <Link>Resources\Background_Blank.html</Link>
+    </BundleResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.2.3.3.180\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.2.3.3.180\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets')" />

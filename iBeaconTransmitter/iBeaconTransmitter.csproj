@@ -39,12 +39,19 @@
     <Compile Include="Model\IiBeaconTransmitService.cs" />
     <Compile Include="Common\Const.cs" />
     <Compile Include="Model\iBeacon.cs" />
+    <Compile Include="CustomControls\CustomWebView.xaml.cs">
+      <DependentUpon>CustomWebView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Model\IResourceUtility.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="App.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\MainPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CustomControls\CustomWebView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
@@ -76,8 +83,20 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="WebResources\CSS\Background_Transmission.css" />
+    <None Include="WebResources\HTML\Background_Transmission.html" />
+    <None Include="WebResources\JavaScript\Background_Transmission.js" />
+    <None Include="WebResources\JavaScript\jquery-2.1.4.min.js" />
+    <None Include="WebResources\HTML\Background_Blank.html" />
   </ItemGroup>
   <ItemGroup />
+  <ItemGroup>
+    <Folder Include="WebResources\" />
+    <Folder Include="WebResources\CSS\" />
+    <Folder Include="WebResources\HTML\" />
+    <Folder Include="WebResources\JavaScript\" />
+    <Folder Include="CustomControls\" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.2.3.3.180\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.2.3.3.180\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets')" />
 </Project>

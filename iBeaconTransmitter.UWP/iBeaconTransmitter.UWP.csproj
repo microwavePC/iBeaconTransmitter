@@ -91,6 +91,23 @@
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
     <None Include="project.json" />
+    <None Include="CustomControls\CustomWebViewRenderer.cs" />
+    <None Include="..\iBeaconTransmitter\WebResources\CSS\Background_Transmission.css">
+      <Link>Background_Transmission.css</Link>
+    </None>
+    <None Include="..\iBeaconTransmitter\WebResources\HTML\Background_Blank.html">
+      <Link>Background_Blank.html</Link>
+    </None>
+    <None Include="..\iBeaconTransmitter\WebResources\HTML\Background_Transmission.html">
+      <Link>Background_Transmission.html</Link>
+    </None>
+    <None Include="..\iBeaconTransmitter\WebResources\JavaScript\Background_Transmission.js">
+      <Link>Background_Transmission.js</Link>
+    </None>
+    <None Include="..\iBeaconTransmitter\WebResources\JavaScript\jquery-2.1.4.min.js">
+      <Link>jquery-2.1.4.min.js</Link>
+    </None>
+    <None Include="Model\ResourceUtility.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
@@ -132,6 +149,9 @@
     <ProjectReference Include="..\iBeaconTransmitter\iBeaconTransmitter.csproj">
       <Name>iBeaconTransmitter</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="CustomControls\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

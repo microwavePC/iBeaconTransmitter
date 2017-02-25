@@ -2,6 +2,9 @@
 
 namespace iBeaconTransmitter.Model
 {
+	/// <summary>
+	/// iBeacon発信用のサービス
+	/// </summary>
 	public interface IiBeaconTransmitService
 	{
         bool TransmissionSupported();

@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 以下の機能を追加したWebView -->
+<!-- ・背景の透過 -->
+<!-- ・iOS用の上部Margin（電池残量や電波の表示欄とWebViewが被らないような調整） -->
+
+<WebView xmlns="http://xamarin.com/schemas/2014/forms"
+		 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+		 x:Class="iBeaconTransmitter.CustomWebView">
+	<WebView.Margin>
+		<OnPlatform x:TypeArguments="Thickness"
+					iOS="0,20,0,0"
+					Android="0,0,0,0" 
+					WinPhone="0,0,0,0" />
+	</WebView.Margin>
+</WebView>

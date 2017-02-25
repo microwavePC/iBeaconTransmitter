@@ -2,6 +2,9 @@
 
 namespace iBeaconTransmitter
 {
+	/// <summary>
+	/// iBeaconの情報を保持するクラス
+	/// </summary>
 	public class iBeacon
 	{
 		#region Constants

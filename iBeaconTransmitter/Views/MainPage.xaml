@@ -2,48 +2,60 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
 			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 			 xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+			 xmlns:controls="clr-namespace:iBeaconTransmitter;assembly=iBeaconTransmitter"
 			 prism:ViewModelLocator.AutowireViewModel="True"
 			 x:Class="iBeaconTransmitter.Views.MainPage"
 			 Title="MainPage">
-	<StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="Center" Margin="20,20,20,20">
-		<!--Label Text="{Binding Title}" /-->
-		<Entry Placeholder="UUID" Text="{Binding Uuid}" IsEnabled="{Binding CanEditBeaconProperties}" />
-		<Entry Placeholder="Major" Text="{Binding Major}" Keyboard="Numeric" IsEnabled="{Binding CanEditBeaconProperties}" />
-		<Entry Placeholder="Minor" Text="{Binding Minor}" Keyboard="Numeric" IsEnabled="{Binding CanEditBeaconProperties}" />
-		<StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal" >
-			<StackLayout.Margin>
-				<OnPlatform x:TypeArguments="Thickness"
-							iOS="0,20,0,-8"
-							Android="0,10,0,-8" 
-							WinPhone="0,20,0,-10" />
-			</StackLayout.Margin>
-			<Label Text="TxPower :">
-				<Label.FontSize>
-					<OnPlatform x:TypeArguments="x:Double"
-								iOS="18"
-								Android="18" />
-				</Label.FontSize>
-				<Label.Margin>
-					<OnPlatform x:TypeArguments="Thickness"
-								iOS="0,0,0,0"
-								Android="5,0,0,0" />
-				</Label.Margin>
-			</Label>
-			<Label Text="{Binding TxPower}">
-				<Label.FontSize>
-					<OnPlatform x:TypeArguments="x:Double"
-								iOS="18"
-								Android="18" />
-				</Label.FontSize>
-			</Label>
-		</StackLayout>
-		<Slider Minimum="-119" Maximum="-59" Value="{Binding TxPower}" IsEnabled="{Binding CanEditBeaconProperties}">
-			<Slider.Margin>
-				<OnPlatform x:TypeArguments="Thickness"
-							iOS="0,0,0,0"
-							Android="-10,5,-10,0" />
-			</Slider.Margin>
-		</Slider>
-		<Button Text="{Binding ButtonTitle}" BorderColor="Silver" BorderWidth="1" FontSize="20" Margin="0,10,0,0" Command="{Binding TransmitStartStopCommand}"/>
+
+	<StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+		<Grid>
+			<controls:CustomWebView HorizontalOptions="FillAndExpand"
+									VerticalOptions="FillAndExpand"
+									WidthRequest="5000"
+									HeightRequest="5000"
+									Source="{Binding Url}">
+			</controls:CustomWebView>
+			<StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="Center" Margin="20,20,20,20" >
+				<Entry Placeholder="UUID" Text="{Binding Uuid}" IsEnabled="{Binding CanEditBeaconProperties}" />
+				<Entry Placeholder="Major" Text="{Binding Major}" Keyboard="Numeric" IsEnabled="{Binding CanEditBeaconProperties}" />
+				<Entry Placeholder="Minor" Text="{Binding Minor}" Keyboard="Numeric" IsEnabled="{Binding CanEditBeaconProperties}" />
+				<StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal" >
+					<StackLayout.Margin>
+						<OnPlatform x:TypeArguments="Thickness"
+									iOS="0,20,0,-8"
+									Android="0,10,0,-8" 
+									WinPhone="0,20,0,-10" />
+					</StackLayout.Margin>
+					<Label Text="TxPower :">
+						<Label.FontSize>
+							<OnPlatform x:TypeArguments="x:Double"
+										iOS="18"
+										Android="18" />
+						</Label.FontSize>
+						<Label.Margin>
+							<OnPlatform x:TypeArguments="Thickness"
+										iOS="0,0,0,0"
+										Android="5,0,0,0" />
+						</Label.Margin>
+					</Label>
+					<Label Text="{Binding TxPower}">
+						<Label.FontSize>
+							<OnPlatform x:TypeArguments="x:Double"
+										iOS="18"
+										Android="18" />
+						</Label.FontSize>
+					</Label>
+				</StackLayout>
+				<Slider Minimum="-119" Maximum="-59" Value="{Binding TxPower}" IsEnabled="{Binding CanEditBeaconProperties}">
+					<Slider.Margin>
+						<OnPlatform x:TypeArguments="Thickness"
+									iOS="0,0,0,0"
+									Android="-10,5,-10,0" />
+					</Slider.Margin>
+				</Slider>
+				<Button Text="{Binding ButtonTitle}" BorderColor="Silver" BorderWidth="1" FontSize="20" Margin="0,10,0,0" Command="{Binding TransmitStartStopCommand}"/>
+			</StackLayout>
+		</Grid>
 	</StackLayout>
+	
 </ContentPage>
